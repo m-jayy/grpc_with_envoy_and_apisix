@@ -4,7 +4,6 @@
 #.vscode/
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -48,6 +47,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 build/
+node_modules/
 
 # Android related
 **/android/**/gradle-wrapper.jar
