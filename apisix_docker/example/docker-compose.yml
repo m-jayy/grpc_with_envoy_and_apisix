@@ -20,19 +20,24 @@ version: "3"
 services:
   apisix-dashboard:
     image: apache/apisix-dashboard:3.0.1-alpine
+    #command: sh -c 'echo "Initialization command"; rm /usr/local/apisix-dashboard/conf/schema.json;'
     restart: always
     volumes:
-    - ./dashboard_conf/conf.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      - ./dashboard_conf/conf.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      # - ./schema.json:/usr/local/apisix-dashboard/conf/schema.json
+      - ./grpc-web-custom.lua:/usr/local/apisix/apisix/plugins/grpc-web-custom.lua
     ports:
-    - "9000:9000"
+      - "9000:9000"
     networks:
       apisix:
 
   apisix:
     image: apache/apisix:${APISIX_IMAGE_TAG:-3.6.0-debian}
+    #extra_lua_padth: "/usr/local/apisix/plugin/grpc-web-custom.lua"
     restart: always
     volumes:
       - ./apisix_conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro
+      - ./grpc-web-custom.lua:/usr/local/apisix/apisix/plugins/grpc-web-custom.lua
     depends_on:
       - etcd
     ##network_mode: host
