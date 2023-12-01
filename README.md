@@ -6,6 +6,7 @@
 
 1. In IDE terminal start the Node.js gRPC service, which is set to listen on port `:9017`. Run command from root directory
 
+before running server please run npm install
 ```sh
 $ node server.js &
 ```
