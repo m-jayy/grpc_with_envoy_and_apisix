@@ -127,13 +127,18 @@ function _M.header_filter(conf, ctx)
     if method == ALLOW_METHOD_OPTIONS then
         core.response.set_header("Access-Control-Allow-Methods", DEFAULT_CORS_ALLOW_METHODS)
         core.response.set_header("Access-Control-Allow-Headers", DEFAULT_CORS_ALLOW_HEADERS)
-        core.response.set_header("Access-Control-Expose-Headers", DEFAULT_CORS_ALLOW_EXPOSE_HEADERS)
+        -- core.response.set_header("Access-Control-Expose-Headers", DEFAULT_CORS_ALLOW_EXPOSE_HEADERS)
     end
 
     if not ctx.cors_allow_origins then
         core.response.set_header("Access-Control-Allow-Origin", DEFAULT_CORS_ALLOW_ORIGIN)
+        -- core.response.set_header("Access-Control-Expose-Headers", DEFAULT_CORS_ALLOW_EXPOSE_HEADERS)
     end
     core.response.set_header("Content-Type", ctx.grpc_web_mime)
+    core.response.set_header("Access-Control-Expose-Headers", DEFAULT_CORS_ALLOW_EXPOSE_HEADERS)
+    print("###########################")
+    core.log.error("request method: `",core.response.get_body() , "` invalid")
+    print("###########################")
 end
 
 function _M.body_filter(conf, ctx)
@@ -150,9 +155,6 @@ function _M.body_filter(conf, ctx)
         local chunk = ngx_arg[1]
         chunk = encode_base64(chunk)
         ngx_arg[1] = chunk
-        local chunk2 = ngx_arg[2]
-        chunk2 = encode_base64(chunk2)
-        ngx_arg[2] = chunk2
     end
 end
 

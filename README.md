@@ -4,21 +4,25 @@
 
 #To run grpc call through envoy proxy
 
-1. In IDE terminal start the Node.js gRPC service, which is set to listen on port `:9017`.
+1. In IDE terminal start the Node.js gRPC service, which is set to listen on port `:9017`. Run command from root directory
 
- ```sh
- $ node server.js &
- ```
+```sh
+$ node server.js &
+```
 
-2. In IDE terminal run the Envoy proxy. The `envoy.yaml` file configures Envoy to listen to
-      browser requests at port `:9081`, and forward them to port `:9017`
+This step can be skipped if you want to setup just apisix 2. In IDE terminal run the Envoy proxy. The `envoy.yaml` file configures Envoy to listen to
+browser requests at port `:9081`, and forward them to port `:9017`
 
 > ```sh
 > $ docker run -d -v "$(pwd)"/envoy.yaml:/etc/envoy/envoy.yaml:ro \
 >     -p 9081:9081 -p 9901:9901 envoyproxy/envoy:v1.22.0
->  ```
+> ```
 
-Now Launch Flutter app in chrome (web) and click on Test Hello, you will observe the following output.
+Now Launch Flutter app in chrome (web) and click on Test Hello, you will observe the following output. run this command from the root directory
+
+```sh
+ $ flutter build web -t lib/main.dart --no-tree-shake-icons && flutter run -d chrome -t lib/main.dart --flavor development
+```
 
 ```
 Hello! Mohsin Javed
@@ -28,9 +32,9 @@ Hello! Mohsin Javed
 
 1. In IDE terminal start the Node.js gRPC service, which is set to listen on port `:9017`.
 
- ```sh
- $ node server.js &
- ```
+```sh
+$ node server.js &
+```
 
 2. In IDE terminal navigate to the "example" folder of the apisix_docker
 
@@ -40,9 +44,9 @@ cd apisix_docker/example
 
 3. Now, we can start all modules with docker-compose
 
- ```sh
- $ docker-compose -p docker-apisix up -d
- ```
+```sh
+$ docker-compose -p docker-apisix up -d
+```
 
 If you check you Docker Desktop, you should see the list of running containers.
 
